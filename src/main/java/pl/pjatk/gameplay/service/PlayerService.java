@@ -2,10 +2,8 @@ package pl.pjatk.gameplay.service;
 
 import org.springframework.stereotype.Service;
 import pl.pjatk.gameplay.model.Player;
-import pl.pjatk.gameplay.model.PlayerDTO;
 import pl.pjatk.gameplay.repository.PlayerRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,11 +11,11 @@ import java.util.Optional;
 public class PlayerService {
 
     private PlayerRepository playerRepository;
-    private PlayerMapper playerMapper;
+    private DamageService damageService;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, DamageService damageService) {
         this.playerRepository = playerRepository;
-        playerMapper = new PlayerMapper();
+        this.damageService = damageService;
     }
 
     public List<Player> findAll() {
@@ -36,10 +34,8 @@ public class PlayerService {
         playerRepository.deleteById(id);
     }
 
-    public Player updatePlayer(Long id, PlayerDTO playerWithUpdatesProperties) {
-        Player dbPlayer = playerRepository.findById(id).get();
-        playerMapper.mapDtoToPlayer(dbPlayer, playerWithUpdatesProperties);
-        return playerRepository.save(dbPlayer);
+    public Player updatePlayer(Player player) {
+        return playerRepository.save(player);
     }
 
     public Player attack(Long attackerId, Long defenderId) {
@@ -47,7 +43,7 @@ public class PlayerService {
         Player attackerPlayer = playerRepository.findById(attackerId).get();
         Player defenderPlayer = playerRepository.findById(defenderId).get();
 
-        defenderPlayer = DamageService.defend(defenderPlayer, attackerPlayer);
+        defenderPlayer = damageService.defend(defenderPlayer, attackerPlayer);
 
         return playerRepository.save(defenderPlayer);
     }

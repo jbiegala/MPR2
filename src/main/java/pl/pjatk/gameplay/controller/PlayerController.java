@@ -3,7 +3,6 @@ package pl.pjatk.gameplay.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pjatk.gameplay.model.Player;
-import pl.pjatk.gameplay.model.PlayerDTO;
 import pl.pjatk.gameplay.service.PlayerService;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class PlayerController {
     @GetMapping("/{id}")
     public ResponseEntity<Player> findById(@PathVariable Long id) {
         Optional<Player> byId = playerService.findById(id);
-        if(byId.isPresent()) {
+        if (byId.isPresent()) {
             return ResponseEntity.ok(byId.get());
         } else {
             return ResponseEntity.notFound().build();
@@ -45,13 +44,13 @@ public class PlayerController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Player> updatePlayer(@PathVariable Long id, @RequestBody PlayerDTO player) {
-        return ResponseEntity.ok(playerService.updatePlayer(id, player));
+    @PutMapping("/update")
+    public ResponseEntity<Player> updatePlayer(@RequestBody Player player) {
+        return ResponseEntity.ok(playerService.updatePlayer(player));
     }
 
     @GetMapping("/attacker/{attackerId}/defender/{defenderId}")
-    public ResponseEntity<Player> attackPlayer(@PathVariable Long attackerId, @PathVariable Long defenderId){
+    public ResponseEntity<Player> attackPlayer(@PathVariable Long attackerId, @PathVariable Long defenderId) {
         return ResponseEntity.ok(playerService.attack(attackerId, defenderId));
     }
 }
