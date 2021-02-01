@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import pl.pjatk.gameplay.model.Player;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.useDefaultDateFormatsOnly;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DamageServiceTest {
 
@@ -15,8 +16,8 @@ public class DamageServiceTest {
     @Test
     void shouldDefendPlayer() {
         //given
-        Player defender = new Player("test defender", 10, 100);
-        Player attacker = new Player("test attacker", 10, 100);
+        Player defender = new Player("test defender", 10, 100, List.of());
+        Player attacker = new Player("test attacker", 10, 100, List.of());
         //when
         defender = damageService.defend(defender, attacker);
         //then
@@ -26,8 +27,8 @@ public class DamageServiceTest {
     @Test
     void shouldKillDefender() {
         //given
-        Player defender = new Player("test defender", 10, 10);
-        Player attacker = new Player("test attacker", 10, 100);
+        Player defender = new Player("test defender", 10, 10, List.of());
+        Player attacker = new Player("test attacker", 10, 100, List.of());
         //when
         defender = damageService.defend(defender, attacker);
         //then
@@ -37,8 +38,8 @@ public class DamageServiceTest {
     @Test
     void shouldHealthAfterDefendGreaterEqualZero() {
         //given
-        Player defender = new Player("test defender", 10, 10);
-        Player attacker = new Player("test attacker", 15, 100);
+        Player defender = new Player("test defender", 10, 10, List.of());
+        Player attacker = new Player("test attacker", 15, 100, List.of());
         //when
         defender = damageService.defend(defender, attacker);
         //then
@@ -48,8 +49,8 @@ public class DamageServiceTest {
     @Test
     void shouldBoostHealthTen() {
         //given
-        Player defender = new Player("test defender", 10, 100);
-        Player attacker = new Player("test attacker", 10, 100);
+        Player defender = new Player("test defender", 10, 100, List.of());
+        Player attacker = new Player("test attacker", 10, 100, List.of());
         //when
         defender = damageService.boostHealth(defender, attacker);
         //then
@@ -59,8 +60,8 @@ public class DamageServiceTest {
     @Test
     void shouldBoostHealthFive() {
         //given
-        Player defender = new Player("test defender", 10, 40);
-        Player attacker = new Player("test attacker", 10, 100);
+        Player defender = new Player("test defender", 10, 40, List.of());
+        Player attacker = new Player("test attacker", 10, 100, List.of());
         //when
         defender = damageService.boostHealth(defender, attacker);
         //then
@@ -70,8 +71,8 @@ public class DamageServiceTest {
     @Test
     void shouldBoostAttackThreeTimes() {
         //given
-        Player defender = new Player("test defender", 10, 100);
-        Player attacker = new Player("test attacker", 20, 100);
+        Player defender = new Player("test defender", 10, 100, List.of());
+        Player attacker = new Player("test attacker", 20, 100, List.of());
         //when
         defender = damageService.boostAttack(defender, attacker);
         //then
@@ -81,8 +82,8 @@ public class DamageServiceTest {
     @Test
     void shouldBoostAttackSixTimes() {
         //given
-        Player defender = new Player("test defender", 10, 100);
-        Player attacker = new Player("test attacker", 10, 100);
+        Player defender = new Player("test defender", 10, 100, List.of());
+        Player attacker = new Player("test attacker", 10, 100, List.of());
         //when
         defender = damageService.boostAttack(defender, attacker);
         //then
@@ -92,7 +93,7 @@ public class DamageServiceTest {
     @Test
     void shouldHealPlayerByFifteen() {
         //given
-        Player player = new Player("test player", 10, 51);
+        Player player = new Player("test player", 10, 51, List.of());
         //when
         player = damageService.heal(player);
         //then
@@ -102,7 +103,7 @@ public class DamageServiceTest {
     @Test
     void shouldHealPlayerByFive() {
         //given
-        Player player = new Player("test player", 10, 49);
+        Player player = new Player("test player", 10, 49, List.of());
         //when
         player = damageService.heal(player);
         //then

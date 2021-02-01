@@ -23,9 +23,24 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.findAll());
     }
 
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("Hello world");
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Player> findById(@PathVariable Long id) {
         Optional<Player> byId = playerService.findById(id);
+        if (byId.isPresent()) {
+            return ResponseEntity.ok(byId.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/byName/{name}")
+    public ResponseEntity<Player> findByName(@PathVariable String name) {
+        Optional<Player> byId = playerService.findByName(name);
         if (byId.isPresent()) {
             return ResponseEntity.ok(byId.get());
         } else {
