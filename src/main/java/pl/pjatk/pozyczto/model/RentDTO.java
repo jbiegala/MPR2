@@ -1,57 +1,23 @@
 package pl.pjatk.pozyczto.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-public class Rent {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @JoinColumn(name = "product_id")
-    @ManyToOne
-    @JsonIgnore
+public class RentDTO {
     private Product product;
-
-    @JoinColumn(name = "borrower_id")
-    @OneToOne
-    @JsonIgnore
     private User borrower;
-
     private LocalDate dateStart;
     private LocalDate dateEnd;
     private Boolean ended;
 
-    public Rent() {
+    public RentDTO() {
     }
 
-    public Rent(Product product, User borrower, LocalDate dateStart, LocalDate dateEnd, Boolean ended) {
+    public RentDTO(Product product, User borrower, LocalDate dateStart, LocalDate dateEnd, Boolean ended) {
         this.product = product;
         this.borrower = borrower;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.ended = ended;
-    }
-
-    public Rent(Long id, Product product, User borrower, LocalDate dateStart, LocalDate dateEnd, Boolean ended) {
-        this.id = id;
-        this.product = product;
-        this.borrower = borrower;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.ended = ended;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Product getProduct() {

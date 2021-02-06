@@ -1,15 +1,6 @@
 package pl.pjatk.pozyczto.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserDTO {
     private String name;
     private Long coins;
     private String district;
@@ -18,25 +9,7 @@ public class User {
     private String email;
     private Long phone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Product> productList = new ArrayList<>();
-
-    public User() {
-    }
-
-    public User(String name, Long coins, String district, String city, String county, String email, Long phone, List<Product> productList) {
-        this.name = name;
-        this.coins = coins;
-        this.district = district;
-        this.city = city;
-        this.county = county;
-        this.email = email;
-        this.phone = phone;
-        this.productList = productList;
-    }
-
-    public User(Long id, String name, Long coins, String district, String city, String county, String email, Long phone) {
-        this.id = id;
+    public UserDTO(String name, Long coins, String district, String city, String county, String email, Long phone) {
         this.name = name;
         this.coins = coins;
         this.district = district;
@@ -46,12 +19,7 @@ public class User {
         this.phone = phone;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public UserDTO() {
     }
 
     public String getName() {
@@ -108,13 +76,5 @@ public class User {
 
     public void setPhone(Long phone) {
         this.phone = phone;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
     }
 }
