@@ -37,6 +37,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public void deleteAll() {
+        userRepository.deleteAll();
+    }
+
     public User updateUser(Long id, UserDTO userDTO) {
         Optional<User> dbUser = userRepository.findById(id);
 
